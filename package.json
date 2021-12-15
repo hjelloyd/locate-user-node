@@ -1,0 +1,28 @@
+{
+  "name": "locate-user-node",
+  "version": "1.0.0",
+  "description": "locates users that live in or are currently a given distance from a city",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.1.x"
+  },
+  "main": "src/main.js",
+  "directories": {
+    "test": "test",
+    "src": "src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjelloyd/locate-user-node.git"
+  },
+  "author": "heather lloyd-cunningham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjelloyd/locate-user-node/issues"
+  },
+  "homepage": "https://github.com/hjelloyd/locate-user-node#readme",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "echo \"not implemented yet\""
+  }
+}
