@@ -1,4 +1,4 @@
-/* eslint-disable  no-undef */
+/* eslint-disable  no-undef, no-unused-expressions, no-underscore-dangle */
 const chai = require('chai');
 const rewire = require('rewire');
 const sinon = require('sinon');
@@ -35,7 +35,7 @@ describe('config', () => {
   });
   describe('getConfig', () => {
     describe('exists', () => {
-      const fakeConfig = 'fakeConfig'
+      const fakeConfig = 'fakeConfig';
       const stubInitialize = sinon.stub().returns(fakeConfig);
       const config = rewire('../../src/config');
       config.__set__('config', fakeConfig);
@@ -48,7 +48,7 @@ describe('config', () => {
       });
     });
     describe('does not exist', () => {
-      const fakeConfig = 'fakeConfig'
+      const fakeConfig = 'fakeConfig';
       const stubInitialize = sinon.stub().returns(fakeConfig);
       const config = rewire('../../src/config');
       config.__set__('config', undefined);

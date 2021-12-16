@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: Locate User API
+  description: API specification to find users in or a specified distance arround a city
+  version: 1.0.0
+paths:
+  /api/v1/city/{city}/distance/{distance}:
+    get:
+      summary: Releases the awacs task
+      parameters:
+        - name: city
+          in: path
+          required: true
+          description: the name of the city to find users in or around
+          schema:
+            type: string
+        - name: distance
+          in: path
+          required: true
+          description: the distance in miles from the city coordinates
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: id is invalid
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Mongo connection is down
+
+  /healthcheck:
+    get:
+      summary: healthcheck
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: ok
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        ip_address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        type:
+          type: array
+          items:
+            type: string
+            enum:
+              - CITY
+              - VICINITY

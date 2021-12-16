@@ -1,4 +1,4 @@
-/* eslint-disable  no-undef */
+/* eslint-disable  no-undef, no-unused-expressions, no-underscore-dangle */
 const chai = require('chai');
 const rewire = require('rewire');
 const sinon = require('sinon');
@@ -21,14 +21,16 @@ describe('app', () => {
   const stubHttpCreateServer = sinon.stub().returns(fakeServer);
   const fakeHttp = { createServer: stubHttpCreateServer };
   const stubHelmet = sinon.stub().returns('helmet');
-  const fakeLogger = { info: sinon.stub(), error: sinon.stub() }
+  const fakeLogger = { info: sinon.stub(), error: sinon.stub() };
   const fakeConfig = { PORT: 3000 };
+  const fakeRoutes = 'routes';
   const app = rewire('../../src/app');
   app.__set__('express', stubExpress);
   app.__set__('helmet', stubHelmet);
   app.__set__('http', fakeHttp);
   app.__set__('config', fakeConfig);
   app.__set__('logger', fakeLogger);
+  app.__set__('routes', fakeRoutes);
 
   it('it should not error', async () => {
     expect(await app()).to.be.undefined;
@@ -37,8 +39,9 @@ describe('app', () => {
     expect(stubExpress).to.have.callCount(1);
   });
   it('will call app.use', () => {
-    expect(stubAppUse).to.have.callCount(1);
+    expect(stubAppUse).to.have.callCount(2);
     expect(stubAppUse.getCall(0)).to.be.calledWith('helmet');
+    expect(stubAppUse.getCall(1)).to.be.calledWith('/', fakeRoutes);
   });
   it('will call helmet', () => {
     expect(stubHelmet).have.callCount(1);
@@ -59,9 +62,9 @@ describe('app', () => {
     expect(fakeLogger.info).to.be.calledOnceWith('Listening on port 3000');
   });
   it('can be forced to log error', () => {
-    const fakeError = new Error('Something Bad Happened')
+    const fakeError = new Error('Something Bad Happened');
     stubServerOn.args[1][1](fakeError);
-    expect(fakeLogger.error).to.be.calledOnceWith('Unexpected error occurred: Something Bad Happened' );
+    expect(fakeLogger.error).to.be.calledOnceWith('Unexpected error occurred: Something Bad Happened');
   });
   it('will call server.listen', () => {
     expect(stubServerListen).to.have.callCount(1);

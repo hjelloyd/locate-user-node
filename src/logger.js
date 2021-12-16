@@ -1,5 +1,6 @@
 const { createLogger, format, transports } = require('winston');
 const config = require('./config').getConfig();
+
 let logger;
 
 const initialize = () => {
@@ -24,11 +25,9 @@ const getLogger = () => {
     logger = initialize();
   }
   return logger;
-}
+};
 
 module.exports = {
   initialize,
-  getLogger
-}
-
-
+  getLogger,
+};

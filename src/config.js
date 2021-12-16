@@ -9,7 +9,7 @@ const initialize = (settings) => {
     LOG_FILE_NAME: 'logOutput.log',
     LOGGING_LEVEL: 'debug',
     NODE_ENV: 'development',
-  }
+  };
 
   return { ...defaultSettings, ...settings };
 };

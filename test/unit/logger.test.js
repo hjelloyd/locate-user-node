@@ -1,4 +1,4 @@
-/* eslint-disable  no-undef */
+/* eslint-disable  no-undef, no-unused-expressions, no-underscore-dangle */
 const chai = require('chai');
 const rewire = require('rewire');
 const sinon = require('sinon');
@@ -15,7 +15,7 @@ describe('logger', () => {
       const stubCreateLogger = sinon.stub().returns(fakeLogger);
       const fakeFormat = {
         json: sinon.stub().returns('json'),
-        simple: sinon.stub().returns('simple')
+        simple: sinon.stub().returns('simple'),
       };
       const stubConsole = sinon.stub().returns('console');
       const stubFile = sinon.stub().returns('file');
@@ -23,7 +23,7 @@ describe('logger', () => {
       const fakeConfig = {
         LOGGING_LEVEL: 'debug',
         LOG_FILE_NAME: 'aFile.log',
-        NODE_ENV: 'dev'
+        NODE_ENV: 'dev',
       };
 
       const logger = rewire('../../src/logger');
@@ -33,7 +33,7 @@ describe('logger', () => {
       logger.__set__('config', fakeConfig);
 
       it('should return the logger', async () => {
-        expect(await logger.initialize()).to.eql(fakeLogger)
+        expect(await logger.initialize()).to.eql(fakeLogger);
       });
       it('should call createLogger once', () => {
         expect(stubCreateLogger).to.be.calledOnce;
@@ -59,14 +59,14 @@ describe('logger', () => {
       const stubCreateLogger = sinon.stub().returns(fakeLogger);
       const fakeFormat = {
         json: sinon.stub().returns('json'),
-        simple: sinon.stub().returns('simple')
+        simple: sinon.stub().returns('simple'),
       };
       const stubFile = sinon.stub().returns('file');
       const fakeTransports = { File: stubFile };
       const fakeConfig = {
         LOGGING_LEVEL: 'debug',
         LOG_FILE_NAME: 'aFile.log',
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
       };
 
       const logger = rewire('../../src/logger');
@@ -76,7 +76,7 @@ describe('logger', () => {
       logger.__set__('config', fakeConfig);
 
       it('should return the logger', async () => {
-        expect(await logger.initialize()).to.eql(fakeLogger)
+        expect(await logger.initialize()).to.eql(fakeLogger);
       });
       it('should not call logger.add once', async () => {
         expect(stubAdd).to.not.be.called;
@@ -88,7 +88,7 @@ describe('logger', () => {
   });
   describe('getLogger', () => {
     describe('exists', () => {
-      const fakeLogger = 'fakeLogger'
+      const fakeLogger = 'fakeLogger';
       const stubInitialize = sinon.stub().returns(fakeLogger);
       const logger = rewire('../../src/logger');
       logger.__set__('logger', fakeLogger);
@@ -101,7 +101,7 @@ describe('logger', () => {
       });
     });
     describe('does not exist', () => {
-      const fakeLogger = 'fakeLogger'
+      const fakeLogger = 'fakeLogger';
       const stubInitialize = sinon.stub().returns(fakeLogger);
       const logger = rewire('../../src/logger');
       logger.__set__('logger', undefined);
