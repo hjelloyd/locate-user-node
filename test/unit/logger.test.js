@@ -17,6 +17,9 @@ describe('logger', () => {
         json: sinon.stub().returns('json'),
         simple: sinon.stub().returns('simple')
       };
+      const stubConsole = sinon.stub().returns('console');
+      const stubFile = sinon.stub().returns('file');
+      const fakeTransports = { File: stubFile, Console: stubConsole };
       const fakeConfig = {
         LOGGING_LEVEL: 'debug',
         LOG_FILE_NAME: 'aFile.log',
@@ -26,9 +29,11 @@ describe('logger', () => {
       const logger = rewire('../../src/logger');
       logger.__set__('createLogger', stubCreateLogger);
       logger.__set__('format', fakeFormat);
+      logger.__set__('transports', fakeTransports);
+      logger.__set__('config', fakeConfig);
 
       it('should return the logger', async () => {
-        expect(await logger.initialize(fakeConfig)).to.eql(fakeLogger)
+        expect(await logger.initialize()).to.eql(fakeLogger)
       });
       it('should call createLogger once', () => {
         expect(stubCreateLogger).to.be.calledOnce;
@@ -56,6 +61,8 @@ describe('logger', () => {
         json: sinon.stub().returns('json'),
         simple: sinon.stub().returns('simple')
       };
+      const stubFile = sinon.stub().returns('file');
+      const fakeTransports = { File: stubFile };
       const fakeConfig = {
         LOGGING_LEVEL: 'debug',
         LOG_FILE_NAME: 'aFile.log',
@@ -65,15 +72,45 @@ describe('logger', () => {
       const logger = rewire('../../src/logger');
       logger.__set__('createLogger', stubCreateLogger);
       logger.__set__('format', fakeFormat);
+      logger.__set__('transports', fakeTransports);
+      logger.__set__('config', fakeConfig);
 
       it('should return the logger', async () => {
-        expect(await logger.initialize(fakeConfig)).to.eql(fakeLogger)
+        expect(await logger.initialize()).to.eql(fakeLogger)
       });
       it('should not call logger.add once', async () => {
         expect(stubAdd).to.not.be.called;
       });
       it('should not call format.simple once', async () => {
         expect(fakeFormat.simple).to.not.be.called;
+      });
+    });
+  });
+  describe('getLogger', () => {
+    describe('exists', () => {
+      const fakeLogger = 'fakeLogger'
+      const stubInitialize = sinon.stub().returns(fakeLogger);
+      const logger = rewire('../../src/logger');
+      logger.__set__('logger', fakeLogger);
+      logger.__set__('initialize', stubInitialize);
+      it('should return the logger', async () => {
+        expect(await logger.getLogger()).to.eql(fakeLogger);
+      });
+      it('should not call initialize', () => {
+        expect(stubInitialize).to.not.be.called;
+      });
+    });
+    describe('does not exist', () => {
+      const fakeLogger = 'fakeLogger'
+      const stubInitialize = sinon.stub().returns(fakeLogger);
+      const logger = rewire('../../src/logger');
+      logger.__set__('logger', undefined);
+      logger.__set__('initialize', stubInitialize);
+      it('should return the logger', async () => {
+        expect(await logger.getLogger()).to.eql(fakeLogger);
+      });
+      it('should call initialize', () => {
+        expect(stubInitialize).to.be.calledOnce;
       });
     });
   });

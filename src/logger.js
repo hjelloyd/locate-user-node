@@ -1,8 +1,9 @@
 const { createLogger, format, transports } = require('winston');
+const config = require('./config').getConfig();
 let logger;
 
- const initialize = (config) => {
-  logger = createLogger({
+const initialize = () => {
+  const log = createLogger({
     level: config.LOGGING_LEVEL,
     format: format.json(),
     defaultMeta: { service: 'locate-user-node' },
@@ -11,16 +12,23 @@ let logger;
     ],
   });
   if (config.NODE_ENV !== 'production') {
-    logger.add(new transports.Console({
+    log.add(new transports.Console({
       format: format.simple(),
     }));
   }
-  return logger;
+  return log;
 };
+
+const getLogger = () => {
+  if (!logger) {
+    logger = initialize();
+  }
+  return logger;
+}
 
 module.exports = {
   initialize,
-  logger,
+  getLogger
 }
 
 

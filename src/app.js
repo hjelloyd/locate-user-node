@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const http = require('http');
-/*eslint no-undef:0*/
-const config = require('./config')(process.env);
-const logger = require('./logger').initialize(config)
+const config = require('./config').getConfig();
+const logger = require('./logger').getLogger()
 
 module.exports = () => {
   const port = config.PORT;
