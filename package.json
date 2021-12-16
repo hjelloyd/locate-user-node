@@ -25,19 +25,24 @@
     "start": "node src/main.js",
     "test": "mocha \"test/unit/**/*.test.js\"",
     "coverage": "nyc npm run test",
-    "eslint": "eslint ./src/*.js ./test/unit/*.js",
-    "outdated": "npm outdated",
-    "vulnerable": "npm audit"
+    "eslint": "eslint ./src/*.js ./test/**/*.js",
+    "outdated": "check-outdated --ignore-pre-releases --columns name,type,current,latest",
+    "vulnerable": "npm audit --audit-level=moderate --production",
+    "cucumberinit": "cucumber-js --init",
+    "cucumber": "cucumber-js ./test/cucumber/features --format html:cucumber/output.html --format-options '{\"snippetInterface\": \"async-await\"}' --exit"
   },
   "dependencies": {
+    "axios": "0.24.0",
     "dotenv": "10.0.0",
     "express": "4.17.1",
     "helmet": "4.6.0",
     "winston": "3.3.3"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "7.3.1",
     "chai": "4.3.4",
     "chai-asserttype": "1.0.5",
+    "check-outdated": "2.10.2",
     "eslint": "8.4.1",
     "eslint-config-airbnb-base": "15.0.0",
     "mocha": "9.1.3",

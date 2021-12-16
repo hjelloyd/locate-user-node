@@ -15,6 +15,8 @@ a web server that returns users who either reside or are within a particular dis
 
 ```http://localhost:3000/api/v1/city/london/distance/50```
 
+distance must be a positive integer
+
 ## Distance Calculation
  The following methods were considered I considered these options for the distance calculation between the user's current location and the city's coordinates
  
@@ -36,3 +38,13 @@ a web server that returns users who either reside or are within a particular dis
  | City | Latitude | Longitude |
  | ---- | ------ | ------ |
  | London | 51.509865 | -0.118092 |
+ 
+ ## Run Cucumber tests
+ To run the cucumber tests the service must be running
+ A folder must be created in the project root called cucumber if one does not exist
+ ```
+nvm use
+npm ci
+npm start
+npm run cucumber
+```
