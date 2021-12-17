@@ -1,6 +1,7 @@
 const axios = require('axios');
 const assert = require('assert');
 const config = require('../../../../src/config').getConfig();
+const { createJsonFromTable, mapDataToMatchTableHeaders } = require('./utils/data-transform-utils');
 
 const { log } = console;
 
@@ -26,8 +27,15 @@ const compareStatus = (response, expected) => {
   assert.deepStrictEqual(response.status, expected);
 };
 
+const compareUsers = async (response, expectedTable) => {
+  const expectedJson = await createJsonFromTable(expectedTable);
+  const mappedResponse = await mapDataToMatchTableHeaders(expectedTable[0], response.data);
+  assert.deepStrictEqual(mappedResponse, expectedJson);
+};
+
 module.exports = {
   callLocatorApi,
   compareMessage,
   compareStatus,
+  compareUsers,
 };

@@ -28,9 +28,10 @@
     "eslint": "eslint ./src/**/*.js",
     "outdated": "check-outdated --ignore-pre-releases --columns name,type,current,latest",
     "vulnerable": "npm audit --audit-level=moderate --production",
-    "precucumber": "npm run start & while ! echo exit | nc localhost 3000; do sleep 10; done",
+    "mocks": "smoke 'mocks' --logs --port 3500",
+    "precucumber": "npm run start & npm run mocks & while ! echo exit | nc localhost 3000; do sleep 10; done & while ! echo exit | nc localhost 3500; do sleep 10; done",
     "cucumber": "cucumber-js ./test/cucumber/features --format html:cucumber/output.html --format-options '{\"snippetInterface\": \"async-await\"}' --exit",
-    "postcucumber": "kill -9 $(lsof -i:3000 -t)"
+    "postcucumber": "kill -9 $(lsof -i:3000 -t) & kill -9 $(lsof -i:3500 -t)"
   },
   "dependencies": {
     "axios": "0.24.0",
@@ -52,6 +53,7 @@
     "nyc": "15.1.0",
     "rewire": "5.0.0",
     "sinon": "12.0.1",
-    "sinon-chai": "3.7.0"
+    "sinon-chai": "3.7.0",
+    "smoke": "3.1.1"
   }
 }

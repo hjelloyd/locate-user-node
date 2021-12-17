@@ -47,6 +47,9 @@ distance must be a positive integer
  | City | Latitude | Longitude |
  | ---- | ------ | ------ |
  | London | 51.509865 | -0.118092 |
+ |Blackpool|53.814178|-3.053540|
+ |Madrid|40.416775|-3.703790|
+ |Glasgow|55.861753|-4.252603|
  
 ## Run Cucumber tests
  The cucumber tests require the service to be running.  This is now done by a prescript.

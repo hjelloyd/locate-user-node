@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "first_name": "Maurise",
+    "last_name": "Shieldon",
+    "email": "mshieldon0@squidoo.com",
+    "ip_address": "192.57.232.111",
+    "latitude": 34.003135,
+    "longitude": -117.7228641,
+    "city": "Blackpool"
+  },
+  {
+    "id": 2,
+    "first_name": "Bendix",
+    "last_name": "Halgarth",
+    "email": "bhalgarth1@timesonline.co.uk",
+    "ip_address": "4.185.73.82",
+    "latitude": 40.416775,
+    "longitude": -3.703790,
+    "city": "Madrid"
+  },
+  {
+    "id": 3,
+    "first_name": "Meghan",
+    "last_name": "Southall",
+    "email": "msouthall2@ihg.com",
+    "ip_address": "21.243.184.215",
+    "latitude": "51.512916",
+    "longitude": "-0.128653",
+    "city": "London"
+  },
+  {
+    "id": 4,
+    "first_name": "Sidnee",
+    "last_name": "Silwood",
+    "email": "ssilwood3@gizmodo.com",
+    "ip_address": "77.55.231.220",
+    "latitude": 52.471488,
+    "longitude": -1.869592,
+    "city": "London"
+  },
+  {
+    "id": 5,
+    "first_name": "Rosita",
+    "last_name": "Ferrulli",
+    "email": "rferrulli4@unesco.org",
+    "ip_address": "182.189.27.66",
+    "latitude": 51.508813,
+    "longitude": -0.128313,
+    "city": "Birmingham"
+  },
+  {
+    "id": 1,
+    "first_name": "Jessica",
+    "last_name": "Morris",
+    "email": "j.morris0@squidoo.com",
+    "ip_address": "192.57.232.111",
+    "latitude": 55.861753,
+    "longitude": -4.252603,
+    "city": "Cardiff"
+  }
+]

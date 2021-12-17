@@ -2,7 +2,12 @@ require('dotenv').config();
 const {
   Given, When, Then,
 } = require('@cucumber/cucumber');
-const { callLocatorApi, compareStatus, compareMessage } = require('../steps/api-steps');
+const {
+  callLocatorApi,
+  compareStatus,
+  compareMessage,
+  compareUsers,
+} = require('../steps/api-steps');
 
 const { log } = console;
 
@@ -19,4 +24,7 @@ Then('the response status returned is {int}', async (status) => {
 });
 Then('the message returned is {string}', async (message) => {
   await compareMessage(response, message);
+});
+Then('the users are returned as below', async (dataTable) => {
+  await compareUsers(response, dataTable.rawTable);
 });
