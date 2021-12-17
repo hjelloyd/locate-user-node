@@ -10,8 +10,8 @@ Feature: locate users
     And the message returned is '<message>'
 
     Examples:
-      | city     | distance | message                                                                           |
-      | 500      | london   | city must be a string and distance must be an integer - exact wording will change |
-      | london   | -1       | distance must be an positive integer - exact wording will change                  |
-      | new york | 50       | city cannot contain spaces  - exact wording will change                           |
+      | city     | distance | message                                                                                 |
+      | 500      | london   | "city" with value "500" fails to match the letters pattern. "distance" must be a number |
+      | london   | -1       | "distance" must be greater than or equal to 0                                           |
+      | new york | 50       | "city" with value "new york" fails to match the letters pattern                         |
 

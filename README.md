@@ -48,12 +48,14 @@ distance must be a positive integer
  | ---- | ------ | ------ |
  | London | 51.509865 | -0.118092 |
  
- ## Run Cucumber tests
- To run the cucumber tests the service must be running
+## Run Cucumber tests
+ The cucumber tests require the service to be running.  This is now done by a prescript.
  A folder must be created in the project root called cucumber if one does not exist
  ```
-nvm use
-npm ci
-npm start
 npm run cucumber
 ```
+
+## Pipeline
+ - This project uses a pipeline created from the Actions facility in Github
+ - As the author uses a custom repository for npm packages locally this was not available in the Github ci
+ - The ```npm ci``` command that is normally recommended was replaced with ```npm install --no-package-lock``` for the project to build in Githb
