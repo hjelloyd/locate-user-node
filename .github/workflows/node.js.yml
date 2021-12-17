@@ -30,4 +30,4 @@ jobs:
     - run: npm run vulnerable
     - run: npm run test
     - run: npm run coverage
-    - run: npm run cucucmber
+    - run: npm run cucumber
