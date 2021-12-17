@@ -17,6 +17,8 @@ describe('config', () => {
         LOG_FILE_NAME: 'logOutput.log',
         LOGGING_LEVEL: 'debug',
         NODE_ENV: 'development',
+        DATA_SOURCE_BASE_URL: 'https://bpdts-test-app.herokuapp.com',
+        REQUEST_TIMEOUT: 30000,
       };
       it('should return the default settings', () => {
         expect(config.initialize(fakeSettings)).to.eql(defaultSettings);

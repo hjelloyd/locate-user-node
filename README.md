@@ -2,18 +2,16 @@
 a web server that returns users who either reside or are within a particular distance of a given city
 
 ## Start locally
-1. ```nvm use``` this ensures the node version specified is used
 2. ``` npm ci``` this will import all the required packages as specified in the package lock file
 3. ``` npm start``` this will start the service
 
-## Start In Docker
+## Start in Docker
 ```
 docker build -t locate-user-node .
 ```
 ```
 docker run -p 3000:3000 locate-user-node
 ```
-
 
 ## API
  - The following api will return users that either live in a city or are currently located within the specified distance of the city
@@ -27,7 +25,7 @@ docker run -p 3000:3000 locate-user-node
 distance must be a positive integer
 
 ## Distance Calculation
- The following methods were considered I considered these options for the distance calculation between the user's current location and the city's coordinates
+ The following methods were considered for the distance calculation between the user's current location, and the city's coordinates
  
  | Method | Selected| Reason |
  | ------ | ------ | ------ |
@@ -41,6 +39,10 @@ distance must be a positive integer
  Since the API design allows for the user to select the distance between points and the errors for Haversine are greater for larger distances,  the GeoLib will be chosen and use the simple calculation for distances less than 300 miles and the more accurate calculation for distances over 300 miles
 
 ## Assumptions
+### Node Version
+- This project has been built and tested using node 16.13.1
+- This can be installed using `nvm use` and follow the directions for installation 
+### City Coordinates
 - The following coordinates are being used for the city centre used in the distance calculation
 - These have been retrieved from https://www.latlong.net/
 
@@ -51,7 +53,7 @@ distance must be a positive integer
  |Madrid|40.416775|-3.703790|
  |Glasgow|55.861753|-4.252603|
  
-## Run Cucumber tests
+## Run Cucumber Tests
  The cucumber tests require the service to be running.  This is now done by a prescript.
  A folder must be created in the project root called cucumber if one does not exist
  ```
@@ -61,4 +63,4 @@ npm run cucumber
 ## Pipeline
  - This project uses a pipeline created from the Actions facility in Github
  - As the author uses a custom repository for npm packages locally this was not available in the Github ci
- - The ```npm ci``` command that is normally recommended was replaced with ```npm install --no-package-lock``` for the project to build in Githb
+ - The ```npm ci``` command that is normally recommended was replaced with ```npm install --no-package-lock``` for the project to build in Github
