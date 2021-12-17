@@ -27,5 +27,5 @@ jobs:
     - run: npm run eslint
     - run: npm run outdated
     - run: npm run vulnerable
-    - run: npm test
-    - run: npm coverage
+    - run: npm run test
+    - run: npm run coverage
