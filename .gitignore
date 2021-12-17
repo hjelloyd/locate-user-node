@@ -3,3 +3,4 @@
 .nyc
 *.log
 cucumber/output.html
+node_modules
