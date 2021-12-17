@@ -43,7 +43,7 @@ describe('get-source-data', () => {
   });
   describe('getUsersByCity', () => {
     describe('successful', () => {
-      const fakeData = ['record1', 'record2'];
+      const fakeData = [{ id: 'record1' }, { id: 'record2' }];
       const fakeAxios = { get: sinon.stub().returns({ data: fakeData }) };
       const fakeRetryConfig = 'Retry Config';
       const fakeConfig = {
@@ -57,7 +57,8 @@ describe('get-source-data', () => {
       getSourceData.__set__('config', fakeConfig);
       getSourceData.__set__('logger', fakeLogger);
       it('should return the data', async () => {
-        expect(await getSourceData.getUsersByCity('blackpool')).to.eql(fakeData);
+        const expectedData = [{ id: 'record1', type: ['CITY'] }, { id: 'record2', type: ['CITY'] }];
+        expect(await getSourceData.getUsersByCity('blackpool')).to.eql(expectedData);
       });
       it('should call axios.get once', () => {
         expect(fakeAxios.get).to.be.calledOnce;

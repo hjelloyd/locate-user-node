@@ -146,7 +146,7 @@ describe('locator', () => {
         expect(stubStatus).to.be.calledOnceWith(206);
       });
       it('Will call send once', () => {
-        expect(stubSend).to.be.calledOnceWith([{ id: 1, type: ['CITY'] }]);
+        expect(stubSend).to.be.calledOnceWith([{ id: 1 }]);
       });
       it('Will log information', () => {
         expect(fakeLogger.info).to.be.calledTwice;

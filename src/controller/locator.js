@@ -29,11 +29,9 @@ const locateUsers = async (req, res) => {
       return res.status(400).send(validParams.error.message);
     }
     const cityUsers = await getUsersByCity(validParams.value.city);
-    const users = cityUsers.map((item) => ({ ...item, ...{ type: ['CITY'] } }));
-
     if (!coordinates[validParams.value.city]) {
       logger.info('Returning only users that have a home city');
-      return res.status(206).send(users);
+      return res.status(206).send(cityUsers);
     }
     return res.status(200).send('ok');
   } catch (err) {
