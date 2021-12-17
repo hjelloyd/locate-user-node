@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: alpine-lts
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -27,7 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run eslint --if-present
-    - run: npm run outdated --if-present
-    - run: npm run vulnerable --if-present
+    - run: npm run eslint
+    - run: npm run outdated
+    - run: npm run vulnerable
     - run: npm test
+    - run: npm coverage

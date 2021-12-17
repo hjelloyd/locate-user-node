@@ -28,7 +28,6 @@
     "eslint": "eslint ./src/*.js ./test/**/*.js",
     "outdated": "check-outdated --ignore-pre-releases --columns name,type,current,latest",
     "vulnerable": "npm audit --audit-level=moderate --production",
-    "cucumberinit": "cucumber-js --init",
     "cucumber": "cucumber-js ./test/cucumber/features --format html:cucumber/output.html --format-options '{\"snippetInterface\": \"async-await\"}' --exit"
   },
   "dependencies": {
