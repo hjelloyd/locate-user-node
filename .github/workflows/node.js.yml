@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm cache clean --force
     - run: npm install --no-package-lock
     - run: npm run eslint
     - run: npm run outdated
