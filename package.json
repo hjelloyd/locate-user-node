@@ -25,7 +25,7 @@
     "start": "node src/main.js",
     "test": "mocha \"test/unit/**/*.test.js\"",
     "coverage": "nyc npm run test",
-    "eslint": "eslint ./src/*.js ./test/**/*.js",
+    "eslint": "eslint ./src/**/*.js",
     "outdated": "check-outdated --ignore-pre-releases --columns name,type,current,latest",
     "vulnerable": "npm audit --audit-level=moderate --production",
     "cucumber": "cucumber-js ./test/cucumber/features --format html:cucumber/output.html --format-options '{\"snippetInterface\": \"async-await\"}' --exit"
@@ -35,6 +35,7 @@
     "dotenv": "10.0.0",
     "express": "4.17.1",
     "helmet": "4.6.0",
+    "joi": "17.5.0",
     "winston": "3.3.3"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "check-outdated": "2.10.2",
     "eslint": "8.4.1",
     "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.25.3",
     "mocha": "9.1.3",
     "nyc": "15.1.0",
     "rewire": "5.0.0",
