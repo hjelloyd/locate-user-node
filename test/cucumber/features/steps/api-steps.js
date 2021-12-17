@@ -30,7 +30,7 @@ const compareStatus = (response, expected) => {
 const compareUsers = async (response, expectedTable) => {
   const expectedJson = await createJsonFromTable(expectedTable);
   const mappedResponse = await mapDataToMatchTableHeaders(expectedTable[0], response.data);
-  assert.deepStrictEqual(mappedResponse, expectedJson);
+  assert.deepStrictEqual(JSON.stringify(mappedResponse), JSON.stringify(expectedJson));
 };
 
 module.exports = {

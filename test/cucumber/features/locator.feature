@@ -43,8 +43,18 @@ Feature: locate users
     When the api is called with city: 'MADRID' and distance: '50'
     Then the response status returned is 200
     And the users are returned as below
-      | id | first_name | last_name  | type               |
+      | id | first_name | last_name  | type                |
       | 1  | "Bendix"   | "Halgarth" | "CITY", "VICINITY"] |
+
+  Scenario: when there are no coordinates for the city
+    Given the cities have the coordinates below
+      | city   | latitude  | longitude |
+      | Madrid | 40.416775 | -3.703790 |
+    When the api is called with city: 'Birmingham' and distance: '5'
+    Then the response status returned is 206
+    And the users are returned as below
+      | id | first_name | last_name  | type     |
+      | 5  | "Rosita"   | "Ferrulli" | ["CITY"] |
 
   Scenario: when there are multiple users home and in the vicinity of a city
     Given the cities have the coordinates below
@@ -53,10 +63,10 @@ Feature: locate users
     When the api is called with city: 'glasgow' and distance: '5'
     Then the response status returned is 200
     And the users are returned as below
-      | id | first_name | last_name  | type                |
+      | id | first_name | last_name  | type                 |
       | 3  | "Meghan"   | "Southall" | ["CITY", "VICINITY"] |
       | 4  | "Sidnee"   | "Silwood"  | ["CITY"]             |
-      | 5  | "Rosita"   | "Ferrulli" | ["VICINITY"]        |
+      | 5  | "Rosita"   | "Ferrulli" | ["VICINITY"]         |
 
   Scenario: when there are multiple users home and in the vicinity of a city but the city has no coordinates
     Given the cities have the coordinates below
@@ -67,4 +77,4 @@ Feature: locate users
     And the users are returned as below
       | id | first_name | last_name  | type     |
       | 3  | "Meghan"   | "Southall" | ["CITY"] |
-      | 4  | "Sidnee"   | "Silwood"  | ["CITY"]  |
+      | 4  | "Sidnee"   | "Silwood"  | ["CITY"] |
