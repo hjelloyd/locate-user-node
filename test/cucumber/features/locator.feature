@@ -44,7 +44,7 @@ Feature: locate users
     Then the response status returned is 200
     And the users are returned as below
       | id | first_name | last_name  | type                |
-      | 1  | "Bendix"   | "Halgarth" | "CITY", "VICINITY"] |
+      | 1  | "Bendix"   | "Halgarth" | ["CITY", "VICINITY"] |
 
   Scenario: when there are no coordinates for the city
     Given the cities have the coordinates below
@@ -60,7 +60,7 @@ Feature: locate users
     Given the cities have the coordinates below
       | city   | latitude  | longitude |
       | Madrid | 40.416775 | -3.703790 |
-    When the api is called with city: 'glasgow' and distance: '5'
+    When the api is called with city: 'london' and distance: '5'
     Then the response status returned is 200
     And the users are returned as below
       | id | first_name | last_name  | type                 |

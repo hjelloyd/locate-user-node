@@ -77,16 +77,18 @@ describe('locator', () => {
     describe('response is successful and coordinates exist', () => {
       const stubSend = sinon.stub().returns('sent');
       const stubStatus = sinon.stub().returns({ send: stubSend });
-      const fakeParams = { city: 'London', distance: 0 };
+      const fakeParams = { city: 'London', distance: 5 };
       const fakeReq = { params: fakeParams };
       const fakeRes = { status: stubStatus };
       const stubValidateParams = sinon.stub().returns({ value: fakeParams });
       const stubGetUsersByCity = sinon.stub().returns([{ id: 1 }]);
+      const stubGetVicinityUsers = sinon.stub().returns([{ id: 2 }]);
       const fakeLogger = { info: sinon.stub(), error: sinon.stub() };
 
       const locator = rewire('../../../src/controller/locator');
       locator.__set__('validateParams', stubValidateParams);
       locator.__set__('getUsersByCity', stubGetUsersByCity);
+      locator.__set__('getVicinityUsers', stubGetVicinityUsers);
       locator.__set__('logger', fakeLogger);
 
       it('will return sent', async () => {
@@ -101,11 +103,15 @@ describe('locator', () => {
       it('Will call getUsersByCity', () => {
         expect(stubGetUsersByCity).to.be.calledOnceWith('London');
       });
+      it('Will call getVicinityUsers', () => {
+        const coords = { latitude: 51.509865, longitude: -0.118092 };
+        expect(stubGetVicinityUsers).to.be.calledOnceWith(coords, 5);
+      });
       it('Will call status once', () => {
         expect(stubStatus).to.be.calledOnceWith(200);
       });
       it('Will call send once', () => {
-        expect(stubSend).to.be.calledOnceWith('ok');
+        expect(stubSend).to.be.calledOnceWith([{ id: 1 }, { id: 2 }]);
       });
       it('Will log information', () => {
         expect(fakeLogger.info).to.be.calledOnce;

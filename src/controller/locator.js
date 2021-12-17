@@ -1,12 +1,13 @@
 const joi = require('joi');
 const logger = require('../logger').getLogger();
 const { getUsersByCity } = require('../utils/get-source-data');
+const { getVicinityUsers } = require('../utils/find-vicinity-users');
 
 const coordinates = {
-  London: { lat: 51.509865, lon: -0.118092 },
-  Blackpool: { lat: 53.814178, lon: -3.053540 },
-  Madrid: { lat: 40.416775, lon: -3.703790 },
-  Glasgow: { lat: 55.861753, lon: -4.252603 },
+  London: { latitude: 51.509865, longitude: -0.118092 },
+  Blackpool: { latitude: 53.814178, longitude: -3.053540 },
+  Madrid: { latitude: 40.416775, longitude: -3.703790 },
+  Glasgow: { latitude: 55.861753, longitude: -4.252603 },
 };
 
 const validateParams = (params) => {
@@ -33,7 +34,9 @@ const locateUsers = async (req, res) => {
       logger.info('Returning only users that have a home city');
       return res.status(206).send(cityUsers);
     }
-    return res.status(200).send('ok');
+    const coords = coordinates[validParams.value.city];
+    const vicinityUsers = await getVicinityUsers(coords, validParams.value.distance);
+    return res.status(200).send(cityUsers.concat(vicinityUsers));
   } catch (err) {
     logger.error(err.message);
     return res.status(500).send('Internal Server Error');
