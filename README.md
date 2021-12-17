@@ -1,10 +1,19 @@
 # locate-user-node
 a web server that returns users who either reside or are within a particular distance of a given city
 
-## To start - locally
+## Start locally
 1. ```nvm use``` this ensures the node version specified is used
 2. ``` npm ci``` this will import all the required packages as specified in the package lock file
 3. ``` npm start``` this will start the service
+
+## Start In Docker
+```
+docker build -t locate-user-node .
+```
+```
+docker run -p 3000:3000 locate-user-node
+```
+
 
 ## API
  - The following api will return users that either live in a city or are currently located within the specified distance of the city
