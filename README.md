@@ -1,5 +1,5 @@
 # locate-user-node
-a web server that returns users who either reside or are within a particular distance of a given city
+a web server that returns users who either reside or are within a radius (distance) from central city coordinates
 
 ## Start locally
 1. ``` npm ci``` this will import all the required packages as specified in the package lock file
@@ -14,7 +14,7 @@ docker run -p 3000:3000 locate-user-node
 ```
 
 ## API
- - The following api will return users that either live in a city or are currently located within the specified distance of the city
+ - The following api will return users that either live in a city or are currently located within the specified distance of the city central coordinates
  
 ```http://localhost:3000/api/v1/city/{city}/distance/{distance}```
 
@@ -22,10 +22,10 @@ docker run -p 3000:3000 locate-user-node
 
 ```http://localhost:3000/api/v1/city/london/distance/50```
 
-distance must be a positive integer
+distance must be a positive number
 
 ## Distance Calculation
- The following methods were considered for the distance calculation between the user's current location, and the city's coordinates
+ The following methods for the distance calculation between the user's current location, and the city's coordinates were considered
  
  | Method | Selected| Reason |
  | ------ | ------ | ------ |
@@ -41,10 +41,10 @@ distance must be a positive integer
 ## Assumptions
 ### Node Version
 - This project has been built and tested using node 16.13.1
-- This can be installed using `nvm use` and follow the directions for installation 
+- This can be installed using `nvm use` [more about nvm](https://github.com/nvm-sh/nvm)
 ### City Coordinates
-- Only cities that have one word names are supported.  ex: York is supported, New York is not.
-- The following coordinates are being used for the city centre used in the distance calculation
+- Only cities that have one word names are supported.  ex: "York" is supported, "New York" is not.
+- The following coordinates have been provided in the configuration
 - These have been retrieved from https://www.latlong.net/
 
  | City | Latitude | Longitude |
@@ -62,13 +62,13 @@ distance must be a positive integer
 ```
  
 ## Run Cucumber Tests
- The cucumber tests require the service to be running.  This is now done by a prescript.
- A folder must be created in the project root called cucumber if one does not exist
+- The cucumber tests require the service to be running.  This is now done by a prescript
+- A folder must be created in the project root called cucumber if one does not exist
  ```
 npm run cucumber
 ```
 
 ## Pipeline
  - This project uses a pipeline created from the Actions facility in Github
- - As the author uses a custom repository for npm packages locally this was not available in the Github ci
- - The ```npm ci``` command that is normally recommended was replaced with ```npm install --no-package-lock``` for the project to build in Github
+ - As the author uses a custom repository for npm packages locally, problems occur when trying to load the packages from the package-lock in the Github pipeline
+ - The ```npm ci``` command that is normally recommended was replaced with ```npm install --no-package-lock``` for the project to successfully build in Github
