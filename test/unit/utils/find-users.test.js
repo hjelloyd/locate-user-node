@@ -12,8 +12,10 @@ describe('find-users', () => {
     const fakeCityCoords = 'cityCoords';
     const fakeUser = { latitude: 'lat', longitude: 'lon' };
     const stubGetDistance = sinon.stub().returns(10000);
+    const stubGetPreciseDistance = sinon.stub().returns(20000);
     const findUsers = rewire('../../../src/utils/find-users.js');
     findUsers.__set__('getDistance', stubGetDistance);
+    findUsers.__set__('getPreciseDistance', stubGetPreciseDistance);
     it('should return true for a max distance of 10 miles', () => {
       expect(findUsers.inVicinity(fakeCityCoords, fakeUser, 10)).to.eql(true);
     });
@@ -23,8 +25,19 @@ describe('find-users', () => {
     it('should return true for a max distance of 6.21371 miles', () => {
       expect(findUsers.inVicinity(fakeCityCoords, fakeUser, 6.21371)).to.eql(true);
     });
+    it('should return true for a max distance of 300 miles', () => {
+      expect(findUsers.inVicinity(fakeCityCoords, fakeUser, 300)).to.eql(true);
+    });
+    it('should return true for a max distance of 301 miles', () => {
+      expect(findUsers.inVicinity(fakeCityCoords, fakeUser, 301)).to.eql(true);
+    });
     it('should call getDistance', () => {
+      expect(stubGetDistance).to.have.callCount(4);
       expect(stubGetDistance.getCall(0)).to.be.calledWith(fakeCityCoords, { latitude: 'lat', longitude: 'lon' }, 0.01);
+    });
+    it('should call getPreciseDistance', () => {
+      expect(stubGetPreciseDistance).to.have.callCount(1);
+      expect(stubGetPreciseDistance.getCall(0)).to.be.calledWith(fakeCityCoords, { latitude: 'lat', longitude: 'lon' }, 0.01);
     });
   });
   describe('mapUsers', () => {

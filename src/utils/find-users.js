@@ -1,4 +1,4 @@
-const { getDistance } = require('geolib');
+const { getDistance, getPreciseDistance } = require('geolib');
 const joi = require('joi');
 const { getAllUsers, getUsersByCity } = require('./get-source-data');
 
@@ -21,7 +21,12 @@ const mapUsers = (user, type) => {
 
 const inVicinity = (cityCoords, user, maxDistance) => {
   const userCoords = { latitude: user.latitude, longitude: user.longitude };
-  const distanceBetweenPoints = getDistance(cityCoords, userCoords, 0.01) * METERS_TO_MILES;
+  let distanceBetweenPoints;
+  if (maxDistance > 300) {
+    distanceBetweenPoints = getPreciseDistance(cityCoords, userCoords, 0.01) * METERS_TO_MILES;
+  } else {
+    distanceBetweenPoints = getDistance(cityCoords, userCoords, 0.01) * METERS_TO_MILES;
+  }
   return distanceBetweenPoints <= maxDistance;
 };
 

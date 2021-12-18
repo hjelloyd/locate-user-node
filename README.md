@@ -36,7 +36,7 @@ distance must be a positive number
  | npm haversine-distance | potential | this package just does the Haversine calculation, is very small 5kb but is 2 years old |
  | npm geolib | potential | this package offers more options including more accurate calculations for distance, 104kb in size, only 2 months old |
   
- Since the API design allows for the user to select the distance between points and the errors for Haversine are greater for larger distances,  the GeoLib will be chosen and use the simple calculation for distances less than 300 miles and the more accurate calculation for distances over 300 miles
+ Since the API design allows for the user to select the distance between points and the errors for Haversine are greater for larger distances,  the GeoLib will be chosen and use the simple calculation for distances less than or equal to 300 miles and the more accurate calculation for distances over 300 miles
 
 ## Assumptions
 ### Node Version
