@@ -43,6 +43,7 @@ distance must be a positive integer
 - This project has been built and tested using node 16.13.1
 - This can be installed using `nvm use` and follow the directions for installation 
 ### City Coordinates
+- Only cities that have one word names are supported.  ex: York is supported, New York is not.
 - The following coordinates are being used for the city centre used in the distance calculation
 - These have been retrieved from https://www.latlong.net/
 
@@ -51,7 +52,7 @@ distance must be a positive integer
  | London | 51.509865 | -0.118092 |
  |Blackpool|53.814178|-3.053540|
  |Madrid|40.416775|-3.703790|
- |Glasgow|55.861753|-4.252603|
+ |Glasgow|55.864239|-4.251806|
  
 ## Run Cucumber Tests
  The cucumber tests require the service to be running.  This is now done by a prescript.

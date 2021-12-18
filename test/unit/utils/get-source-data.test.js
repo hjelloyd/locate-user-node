@@ -57,8 +57,7 @@ describe('get-source-data', () => {
       getSourceData.__set__('config', fakeConfig);
       getSourceData.__set__('logger', fakeLogger);
       it('should return the data', async () => {
-        const expectedData = [{ id: 'record1', type: ['CITY'] }, { id: 'record2', type: ['CITY'] }];
-        expect(await getSourceData.getUsersByCity('blackpool')).to.eql(expectedData);
+        expect(await getSourceData.getUsersByCity('blackpool')).to.eql(fakeData);
       });
       it('should call axios.get once', () => {
         expect(fakeAxios.get).to.be.calledOnce;

@@ -27,7 +27,7 @@ const getUsersByCity = async (city) => {
       timeout: config.REQUEST_TIMEOUT,
       raxConfig: retryConfig,
     });
-    return response.data.map((item) => ({ ...item, ...{ type: ['CITY'] } }));
+    return response.data;
   } catch (err) {
     logger.error(`Failed to retrieve users for city: ${city} - ${err.message}`);
     throw err;
