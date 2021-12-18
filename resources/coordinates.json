@@ -1,0 +1,6 @@
+{
+"LONDON": { "latitude": 51.509865, "longitude": -0.118092 },
+"BLACKPOOL": { "latitude": 53.814178, "longitude": -3.053540 },
+"MADRID": { "latitude": 40.416775, "longitude": -3.703790 },
+"GLASGOW": { "latitude": 55.864239, "longitude": -4.251806 }
+}

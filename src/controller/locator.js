@@ -1,13 +1,7 @@
 const joi = require('joi');
 const logger = require('../logger').getLogger();
 const { getVicinityUsers, getCityUsers, getUniqueUsers } = require('../utils/find-users');
-
-const coordinates = {
-  London: { latitude: 51.509865, longitude: -0.118092 },
-  Blackpool: { latitude: 53.814178, longitude: -3.053540 },
-  Madrid: { latitude: 40.416775, longitude: -3.703790 },
-  Glasgow: { latitude: 55.864239, longitude: -4.251806 },
-};
+const { getCoordinates } = require('../utils/find-coordinates');
 
 const validateParams = (params) => {
   const schema = joi.object({
@@ -28,15 +22,15 @@ const locateUsers = async (req, res) => {
       logger.info(`Invalid parameters: ${validParams.error.message}`);
       return res.status(400).send(validParams.error.message);
     }
+    const coords = await getCoordinates(validParams.value.city);
 
     const cityUsers = await getCityUsers(validParams.value.city);
     logger.info(`Found ${cityUsers.length} city users`);
-    if (!coordinates[validParams.value.city]) {
+    if (!coords) {
       logger.info('Returning only users that have a home city');
       return res.status(206).send(cityUsers);
     }
 
-    const coords = coordinates[validParams.value.city];
     const vicinityUsers = await getVicinityUsers(coords, validParams.value.distance);
     logger.info(`Found ${vicinityUsers.length} vicinity users`);
 

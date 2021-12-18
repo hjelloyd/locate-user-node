@@ -49,10 +49,17 @@ distance must be a positive integer
 
  | City | Latitude | Longitude |
  | ---- | ------ | ------ |
- | London | 51.509865 | -0.118092 |
- |Blackpool|53.814178|-3.053540|
- |Madrid|40.416775|-3.703790|
- |Glasgow|55.864239|-4.251806|
+ | LONDON | 51.509865 | -0.118092 |
+ |BLACKPOOL|53.814178|-3.053540|
+ |MADRID|40.416775|-3.703790|
+ |GLASGOW|55.864239|-4.251806|
+ 
+- Additional cities can be configured by adding them to the /resources/coordinates.json file
+- City names must be in all uppercase and latitude and longitude must be in numeric decimal form
+- An example for Madrid
+```
+"MADRID": { "latitude": 40.416775, "longitude": -3.703790 },
+```
  
 ## Run Cucumber Tests
  The cucumber tests require the service to be running.  This is now done by a prescript.

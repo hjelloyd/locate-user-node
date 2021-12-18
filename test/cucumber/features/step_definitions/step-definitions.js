@@ -8,13 +8,12 @@ const {
   compareMessage,
   compareUsers,
 } = require('../steps/api-steps');
-
-const { log } = console;
+const { saveCoordinatesToFile } = require('../steps/fs-steps');
 
 let response;
-/* eslint no-unused-vars:0 */
+
 Given('the cities have the coordinates below', async (dataTable) => {
-  log('Not Implemented Yet');
+  await saveCoordinatesToFile(dataTable.rawTable);
 });
 When('the api is called with city: {string} and distance: {string}', async (city, distance) => {
   response = await callLocatorApi(city, distance);
