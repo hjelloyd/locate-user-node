@@ -36,9 +36,24 @@ const getCityUsers = async (city) => {
   return users.map((item) => mapUsers(item, 'CITY'));
 };
 
+const getUniqueUsers = async (cityUsers, vicinityUsers) => {
+  const users = [...cityUsers];
+  vicinityUsers.forEach((item) => {
+    const index = users.findIndex((elm) => elm.id === item.id);
+    if (index < 0) {
+      users.push(item);
+    } else {
+      users[index].type.push(item.type[0]);
+    }
+  });
+  users.sort((a, b) => (a.id - b.id));
+  return users;
+};
+
 module.exports = {
   mapUsers,
   inVicinity,
   getVicinityUsers,
   getCityUsers,
+  getUniqueUsers,
 };

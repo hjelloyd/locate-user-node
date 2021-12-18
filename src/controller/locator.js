@@ -1,6 +1,6 @@
 const joi = require('joi');
 const logger = require('../logger').getLogger();
-const { getVicinityUsers, getCityUsers } = require('../utils/find-users');
+const { getVicinityUsers, getCityUsers, getUniqueUsers } = require('../utils/find-users');
 
 const coordinates = {
   London: { latitude: 51.509865, longitude: -0.118092 },
@@ -28,14 +28,22 @@ const locateUsers = async (req, res) => {
       logger.info(`Invalid parameters: ${validParams.error.message}`);
       return res.status(400).send(validParams.error.message);
     }
+
     const cityUsers = await getCityUsers(validParams.value.city);
+    logger.info(`Found ${cityUsers.length} city users`);
     if (!coordinates[validParams.value.city]) {
       logger.info('Returning only users that have a home city');
       return res.status(206).send(cityUsers);
     }
+
     const coords = coordinates[validParams.value.city];
     const vicinityUsers = await getVicinityUsers(coords, validParams.value.distance);
-    return res.status(200).send(cityUsers.concat(vicinityUsers));
+    logger.info(`Found ${vicinityUsers.length} vicinity users`);
+
+    const uniqueUsers = await getUniqueUsers(cityUsers, vicinityUsers);
+    logger.info(`Found ${uniqueUsers.length} unique users`);
+
+    return res.status(200).send(uniqueUsers);
   } catch (err) {
     logger.error(err.message);
     return res.status(500).send('Internal Server Error');

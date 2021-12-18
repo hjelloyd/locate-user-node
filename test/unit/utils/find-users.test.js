@@ -98,4 +98,13 @@ describe('find-users', () => {
       expect(stubMapUsers).to.be.calledTwice;
     });
   });
+  describe('getUniqueUsers', () => {
+    const cityUsers = [{ id: 2, type: ['CITY'] }, { id: 3, type: ['CITY'] }];
+    const vicinityUsers = [{ id: 1, type: ['VICINTIY'] }, { id: 3, type: ['VICINITY'] }];
+    const { getUniqueUsers } = rewire('../../../src/utils/find-users.js');
+    it('should return data', async () => {
+      const expectedData = [{ id: 1, type: ['VICINTIY'] }, { id: 2, type: ['CITY'] }, { id: 3, type: ['CITY', 'VICINITY'] }];
+      expect(await getUniqueUsers(cityUsers, vicinityUsers)).to.eql(expectedData);
+    });
+  });
 });

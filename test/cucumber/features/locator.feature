@@ -44,7 +44,7 @@ Feature: locate users
     Then the response status returned is 200
     And the users are returned as below
       | id | first_name | last_name  | type                |
-      | 1  | "Bendix"   | "Halgarth" | ["CITY", "VICINITY"] |
+      | 2  | "Bendix"   | "Halgarth" | ["CITY", "VICINITY"] |
 
   Scenario: when there are no coordinates for the city
     Given the cities have the coordinates below

@@ -83,12 +83,14 @@ describe('locator', () => {
       const stubValidateParams = sinon.stub().returns({ value: fakeParams });
       const stubGetCityUsers = sinon.stub().returns([{ id: 1 }]);
       const stubGetVicinityUsers = sinon.stub().returns([{ id: 2 }]);
+      const stubGetUniqueUsers = sinon.stub().returns([{ id: 1 }, { id: 2 }]);
       const fakeLogger = { info: sinon.stub(), error: sinon.stub() };
 
       const locator = rewire('../../../src/controller/locator');
       locator.__set__('validateParams', stubValidateParams);
       locator.__set__('getCityUsers', stubGetCityUsers);
       locator.__set__('getVicinityUsers', stubGetVicinityUsers);
+      locator.__set__('getUniqueUsers', stubGetUniqueUsers);
       locator.__set__('logger', fakeLogger);
 
       it('will return sent', async () => {
@@ -107,6 +109,9 @@ describe('locator', () => {
         const coords = { latitude: 51.509865, longitude: -0.118092 };
         expect(stubGetVicinityUsers).to.be.calledOnceWith(coords, 5);
       });
+      it('Will call getUniqueUsers', () => {
+        expect(stubGetUniqueUsers).to.be.calledOnceWith([{ id: 1 }], [{ id: 2 }]);
+      });
       it('Will call status once', () => {
         expect(stubStatus).to.be.calledOnceWith(200);
       });
@@ -114,8 +119,11 @@ describe('locator', () => {
         expect(stubSend).to.be.calledOnceWith([{ id: 1 }, { id: 2 }]);
       });
       it('Will log information', () => {
-        expect(fakeLogger.info).to.be.calledOnce;
+        expect(fakeLogger.info).to.have.callCount(4);
         expect(fakeLogger.info.args[0][0]).to.eql('Received request to get users');
+        expect(fakeLogger.info.args[1][0]).to.eql('Found 1 city users');
+        expect(fakeLogger.info.args[2][0]).to.eql('Found 1 vicinity users');
+        expect(fakeLogger.info.args[3][0]).to.eql('Found 2 unique users');
       });
       it('Will not log errors', () => {
         expect(fakeLogger.error).to.not.be.called;
@@ -155,9 +163,10 @@ describe('locator', () => {
         expect(stubSend).to.be.calledOnceWith([{ id: 1 }]);
       });
       it('Will log information', () => {
-        expect(fakeLogger.info).to.be.calledTwice;
+        expect(fakeLogger.info).to.have.callCount(3);
         expect(fakeLogger.info.args[0][0]).to.eql('Received request to get users');
-        expect(fakeLogger.info.args[1][0]).to.eql('Returning only users that have a home city');
+        expect(fakeLogger.info.args[1][0]).to.eql('Found 1 city users');
+        expect(fakeLogger.info.args[2][0]).to.eql('Returning only users that have a home city');
       });
       it('Will not log errors', () => {
         expect(fakeLogger.error).to.not.be.called;
